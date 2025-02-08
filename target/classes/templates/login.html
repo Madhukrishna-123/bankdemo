@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        
+        <button type="submit">Login</button>
+    </form>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent form submission
+
+        const data = {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value
+        };
+
+        try {
+            const response = await fetch('/auth/login', { // Ensure this matches your backend
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                throw new Error('Invalid Credentials');
+            }
+
+            const result = await response.text(); // Expect plain text response
+
+            // Store the response (if you want to extract token, backend must include it)
+            localStorage.setItem('loginResponse', result);
+            
+            alert(result); // Show success message
+            window.location.href = '/home.html'; // Redirect to dashboard
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Login Failed: ' + error.message);
+        }
+    });
+</script>
+
+</body>
+</html>
