@@ -5,13 +5,12 @@ import com.example.BankDemo.repository.UserRepository;
 import com.example.BankDemo.service.CustomUserDetailsService;
 import com.example.BankDemo.util.JwtUtil;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import javax.sql.DataSource;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -68,19 +67,6 @@ public class AuthController {
 		return ResponseEntity.ok("User registered successfully");
 	}
 
-//    @PostMapping("/login")
-//    public ResponseEntity<String> login(@RequestBody User user) {
-//    	System.out.println(user.getEmail());
-//        Authentication authentication = authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-//        
-//       
-//
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//        
-//       
-//        return ResponseEntity.ok("Login successful for user: "  + userDetails.getUsername());
-//    }
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody User user) {
@@ -93,7 +79,7 @@ public class AuthController {
 			System.out.println(token);
 			return ResponseEntity.ok(token);
 		} catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password"); // Return 401 for invalid login
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
 		}
 	}
 
@@ -102,13 +88,9 @@ public class AuthController {
 		return "register";
 	}
 
-	@GetMapping("/acclogin")
-	public String showLoginPage() {
-		return "login";
-	}
+
 
 	@GetMapping("/test")
-    
     public String loginUser() {
         String url = "http://192.168.1.3:8080/school/login";
 
@@ -154,7 +136,6 @@ public class AuthController {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
 
-        // Creating HTTP Entity with body and headers
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestBody, headers);
 
         // Making POST request
