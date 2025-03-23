@@ -15,3 +15,4 @@ com\example\BankDemo\service\ForgotPasswordService.class
 com\example\BankDemo\exceptions\GlobalExceptionHandler.class
 com\example\BankDemo\BankDemoApplication.class
 com\example\BankDemo\controller\AuthController.class
+com\example\BankDemo\TestDBConnection.class
